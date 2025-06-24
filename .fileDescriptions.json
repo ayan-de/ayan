@@ -1,0 +1,10 @@
+{
+  "src": "This is the source code file.",
+  "src/index.ts": "This is the main file of your project.",
+  ".gitignore": "This file is used to ignore files and folders during git operations.",
+  "tsconfig.json": "This file is used to configure the TypeScript compiler.",
+  "package.json": "This file is used to configure the Node.js project.",
+  "dist": "This folder is used to store compiled JavaScript files.",
+  "nodemon.json": "This file is used to configure the nodemon process.",
+  ".git": "TODO: Add description"
+}
