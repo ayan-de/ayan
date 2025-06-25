@@ -1,5 +1,5 @@
 {
-  "name": "ayan",
+  "name": "ayan-cli",
   "version": "1.0.0",
   "description": "Tiny HTTP/HTTPS API-testing REPL",
   "type": "commonjs",

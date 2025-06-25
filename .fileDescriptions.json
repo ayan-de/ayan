@@ -6,5 +6,6 @@
   "package.json": "This file is used to configure the Node.js project.",
   "dist": "This folder is used to store compiled JavaScript files.",
   "nodemon.json": "This file is used to configure the nodemon process.",
-  ".git": "TODO: Add description"
+  ".git": "TODO: Add description",
+  ".npmignore": "TODO: Add description"
 }
