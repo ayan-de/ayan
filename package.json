@@ -16,7 +16,8 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "prepare": "npm run build"
   },
   "keywords": [
     "cli",
