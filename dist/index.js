@@ -14,16 +14,6 @@ let useHttps = false;
 function parseFlags() {
     const args = process.argv.slice(2); // Skip node and script path
     const flags = {};
-    // let useHttps = false;
-    // for (let i = 0; i < args.length; i += 2) {
-    //     const flag = args[i];
-    //     const value = args[i + 1];
-    //     if (!flag.startsWith("-") || !value) {
-    //         console.error(`Invalid flag/value pair: ${flag} ${value}`);
-    //         process.exit(1);
-    //     }
-    //     flags[flag] = value;
-    // }
     for (let i = 0; i < args.length; i++) {
         const flag = args[i];
         if (flag === "-https") {
