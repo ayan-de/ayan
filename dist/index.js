@@ -4,28 +4,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_http_1 = __importDefault(require("node:http"));
+const node_https_1 = __importDefault(require("node:https"));
 const node_readline_1 = __importDefault(require("node:readline"));
 const rl = node_readline_1.default.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
+let useHttps = false;
 function parseFlags() {
     const args = process.argv.slice(2); // Skip node and script path
     const flags = {};
-    for (let i = 0; i < args.length; i += 2) {
+    // let useHttps = false;
+    // for (let i = 0; i < args.length; i += 2) {
+    //     const flag = args[i];
+    //     const value = args[i + 1];
+    //     if (!flag.startsWith("-") || !value) {
+    //         console.error(`Invalid flag/value pair: ${flag} ${value}`);
+    //         process.exit(1);
+    //     }
+    //     flags[flag] = value;
+    // }
+    for (let i = 0; i < args.length; i++) {
         const flag = args[i];
-        const value = args[i + 1];
-        if (!flag.startsWith("-") || !value) {
-            console.error(`Invalid flag/value pair: ${flag} ${value}`);
-            process.exit(1);
+        if (flag === "-https") {
+            useHttps = true;
         }
-        flags[flag] = value;
+        else if (flag.startsWith("-") && i + 1 < args.length && !args[i + 1].startsWith("-")) {
+            flags[flag] = args[i + 1];
+            i++;
+        }
     }
     return {
         host: flags["-h"] || "localhost",
         port: parseInt(flags["-p"] || "80"),
         path: flags["-a"] || "/",
         method: (flags["-m"] || "GET").toUpperCase(),
+        useHttps,
     };
 }
 const { host, port, path, method } = parseFlags();
@@ -47,7 +61,8 @@ const options = {
         "Content-Type": "application/json",
     },
 };
-const req = node_http_1.default.request(options, (res) => {
+const client = useHttps ? node_https_1.default : node_http_1.default;
+const req = client.request(options, (res) => {
     console.log("\n=== Response Received ===");
     console.table([{ Key: "Status Code", Value: res.statusCode }]);
     console.log("\n=== Headers ===");
@@ -60,7 +75,7 @@ const req = node_http_1.default.request(options, (res) => {
         console.log("\n=== Body ===");
         try {
             const parsed = JSON.parse(data);
-            console.table(parsed);
+            console.log(parsed);
         }
         catch {
             console.log(data);
