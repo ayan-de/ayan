@@ -6,21 +6,53 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+function parseFlags(): {
+    host: string;
+    port: number;
+    path: string;
+    method: string;
+} {
+    const args = process.argv.slice(2); // Skip node and script path
+    const flags: Record<string, string> = {};
+
+    for (let i = 0; i < args.length; i += 2) {
+        const flag = args[i];
+        const value = args[i + 1];
+
+        if (!flag.startsWith("-") || !value) {
+            console.error(`Invalid flag/value pair: ${flag} ${value}`);
+            process.exit(1);
+        }
+
+        flags[flag] = value;
+    }
+
+    return {
+        host: flags["-h"] || "localhost",
+        port: parseInt(flags["-p"] || "80"),
+        path: flags["-a"] || "/",
+        method: (flags["-m"] || "GET").toUpperCase(),
+    };
+}
+
+const { host, port, path, method } = parseFlags();
+
+
 function ask(question: string): Promise<string> {
     return new Promise((resolve) => rl.question(question, resolve));
 }
 
-(async () => {
-    const host = await ask("Enter host (e.g., localhost): ");
-    const port = await ask("Enter port (e.g., 8050): ");
-    const path = await ask("Enter path (e.g., /api): ");
-    const method = (await ask("Enter method (GET/POST): ")).toUpperCase();
+// (async () => {
+//     const host = await ask("Enter host (e.g., localhost): ");
+//     const port = await ask("Enter port (e.g., 8050): ");
+//     const path = await ask("Enter path (e.g., /api): ");
+//     const method = (await ask("Enter method (GET/POST): ")).toUpperCase();
 
-    rl.close();
+//     rl.close();
 
     const options: RequestOptions = {
         host,
-        port: parseInt(port),
+        port,
         path,
         method,
         headers: {
@@ -64,4 +96,3 @@ function ask(question: string): Promise<string> {
     }
 
     req.end();
-})();
