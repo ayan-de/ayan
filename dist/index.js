@@ -5,11 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_http_1 = __importDefault(require("node:http"));
 const node_https_1 = __importDefault(require("node:https"));
-const node_readline_1 = __importDefault(require("node:readline"));
-const rl = node_readline_1.default.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
 let useHttps = false;
 function parseFlags() {
     const args = process.argv.slice(2); // Skip node and script path
@@ -33,9 +28,6 @@ function parseFlags() {
     };
 }
 const { host, port, path, method } = parseFlags();
-function ask(question) {
-    return new Promise((resolve) => rl.question(question, resolve));
-}
 // (async () => {
 //     const host = await ask("Enter host (e.g., localhost): ");
 //     const port = await ask("Enter port (e.g., 8050): ");

@@ -1,11 +1,6 @@
 import http, { RequestOptions } from "node:http";
 import https from "node:https";
-import readline from "node:readline";
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
 
 let useHttps = false;
 
@@ -20,7 +15,7 @@ function parseFlags(): {
     const args = process.argv.slice(2); // Skip node and script path
     const flags: Record<string, string> = {};
 
-        for (let i = 0; i < args.length; i++) {
+    for (let i = 0; i < args.length; i++) {
         const flag = args[i];
 
         if (flag === "-https") {
@@ -43,9 +38,6 @@ function parseFlags(): {
 const { host, port, path, method } = parseFlags();
 
 
-function ask(question: string): Promise<string> {
-    return new Promise((resolve) => rl.question(question, resolve));
-}
 
 // (async () => {
 //     const host = await ask("Enter host (e.g., localhost): ");
