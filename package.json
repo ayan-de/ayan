@@ -1,16 +1,38 @@
 {
   "name": "ayan",
   "version": "1.0.0",
+  "description": "Tiny HTTP/HTTPS API-testing REPL",
+  "type": "commonjs",
   "main": "dist/index.js",
+  "bin": {
+    "ayan": "./dist/launch.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
     "dev": "nodemon"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "http",
+    "repl",
+    "api-testing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ayan-de/ayan"
+  },
+  "bugs": {
+    "url": "https://github.com/ayan-de/ayan/issues"
+  },
+  "author": "ayande",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/node": "^24.0.3",
     "ts-node": "^10.9.2",
