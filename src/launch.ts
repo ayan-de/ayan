@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 
-const { spawn, exec } = require("child_process");
-const os = require("os");
+const { spawn } = require("child_process");
 const path = require("path");
 
 const replPath = path.join(__dirname, "repl.js");
 
+// Run the REPL directly in the current terminal
+spawn("node", [replPath], { stdio: "inherit" });
 
+// Old code for reference (removed):
+/*
 const isMac = process.platform === "darwin";
 const isLinux = process.platform === "linux";
 const isWindows = process.platform === "win32";
-
 
 // Detect if running inside VS Code terminal
 const isVSCode =
@@ -47,7 +49,8 @@ if (isVSCode) {
             console.warn(`Failed to launch ${terminal}, trying next...`);
         }
     }
-} else if (isMac) {
+} else if (isMac) {*/
+    /*
     // Use AppleScript to open Terminal.app and run node ${replPath}
     exec(
         `osascript -e 'tell application "Terminal" to do script "node ${replPath}"'`
@@ -61,3 +64,4 @@ if (isVSCode) {
 } else {
     console.error("Unsupported platform or environment");
 }
+*/
